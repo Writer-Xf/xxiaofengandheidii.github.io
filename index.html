@@ -50,11 +50,32 @@
             font-size: 30px;
             margin: 15px 0;
         }
+        /* 新增音乐控制按钮样式 */
+        .music-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            background: rgba(232, 67, 147, 0.7);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 18px;
+            cursor: pointer;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+        .music-btn:hover {
+            background: rgba(232, 67, 147, 0.9);
+            transform: scale(1.1);
+        }
     </style>
 </head>
-<audio autoplay loop>
-<source src="ap1000_us0_pi409_s3104593839.mp3" type="audio/mpeg">
-</audio>
 <body>
     <div class="container">
         <h1>Para Mi Amor</h1>
@@ -73,9 +94,81 @@
             
             <p>虽然有时我们相隔千里，但我心的每一次跳动都只为你。你是我每天早晨微笑的原因，也是我入睡前最后的思念。</p>
             
+            <p>Con todo mi amor</p>
+        </div>
+        <div class="signature">XinXiaofeng</div>
+    </div>
+
+    <!-- 优化后的音乐播放器 -->
+    <audio id="bgMusic" loop>
+        <source src="ap1000_us0_pi409_s3104593839.mp3" type="audio/mpeg">
+        您的浏览器不支持音频元素
+    </audio>
+
+    <!-- 音乐控制按钮 -->
+    <button class="music-btn" onclick="toggleMusic()">♪</button>
+
+    <script>
+        // 音乐控制功能
+        function toggleMusic() {
+            var music = document.getElementById('bgMusic');
+            var btn = document.querySelector('.music-btn');
+            
+            if (music.paused) {
+                music.play();
+                btn.innerHTML = '♪';
+                btn.title = "暂停音乐";
+            } else {
+                music.pause();
+                btn.innerHTML = '♫';
+                btn.title = "播放音乐";
+            }
+        }
+
+        // 自动播放处理（解决浏览器限制）
+        document.addEventListener('DOMContentLoaded', function() {
+            var music = document.getElementById('bgMusic');
+            music.volume = 0.3; // 设置初始音量（30%）
+            
+            // 尝试自动播放（大多数桌面浏览器支持）
+            var playPromise = music.play();
+            
+            // 处理自动播放被阻止的情况
+            if (playPromise !== undefined) {
+                playPromise.catch(error => {
+                    // 显示提示（可选）
+                    console.log('等待用户交互后自动播放');
+                });
+            }
+        });
+
+        // 移动端触摸事件触发播放（解决iOS限制）
+        document.body.addEventListener('touchstart', function() {
+            document.getElementById('bgMusic').play();
+        }, { once: true });
+    </script>
+</body>
+</html>
+        <h1>为了我的爱</h1>
+        <div class="flag">🇨🇴 ❤️ 🇨🇳</div>
+        <div class="heart">❤️</div>
+        <div class="message">
+            <p>Mi querida Heidi,</p>
+            
+            <p>Desde el primer momento en que te vi, supe que había encontrado algo especial. Tu sonrisa ilumina mi día y tu corazón llena el mío de alegría.</p>
+            
+            <p>亲爱的Heidi：</p>
+            
+            <p>从见到你的第一刻起，我就知道我已经找到了特别的人。你的笑容照亮了我的每一天，你的心让我的内心充满欢乐。</p>
+            
+            <p>Aunque a veces estamos separados por la distancia, cada latido de mi corazón late solo por ti. Eres la razón por la que sonrío cada mañana y el último pensamiento en mi mente antes de dormir.</p>
+            
+            <p>虽然有时我们相隔千里，但我心的每一次跳动都只为你。你是我每天早晨微笑的原因，也是我入睡前最后的思念。</p>
+            
             <p>Con todo mi amor,</p>
         </div>
-        <div class="signature">Xiaofeng</div>
+        <div class="签名">小风</div>
     </div>
-</body>
+</身体>
+
 </html>
